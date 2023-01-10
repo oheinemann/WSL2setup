@@ -348,14 +348,15 @@ if ($rebootRequired) {
     Write-Host("Setting WSL2 as the default...")
     wsl --set-default-version 2
     $distro = Select-Distro
+    $distrowinpe = $($distro.winpe)
     Install-Distro($distro)
     if ($distro.AppxName.Length -gt 1) {
         if ($distro.sideloadreqd){
             if (Check-Sideload){
-                Start-Process $distro.winpe
+                Start-Process $distrowinpe
             }
         } else {
-            Start-Process $distro.winpe
+            Start-Process $distrowinpe
         }
     } else {
         $wslselect = ""
